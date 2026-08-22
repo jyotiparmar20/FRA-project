@@ -1,14 +1,14 @@
 pipeline{
     agent any 
     environment {
-        REPONAME = 'mayurwagh'
+        REPONAME = 'jyotiparmar'
         IMAGE_NAME = 'flight-reservation-cdec-b50'
     }
 
     stages{
         stage('checkout'){
             steps{
-                 git branch: 'main', url: 'https://github.com/mayurmwagh/flight-reservation-app.git' 
+                 git branch: 'main', url: 'https://github.com/jyotiparmar20/FRA-project.git'
             }
 
         }
@@ -20,16 +20,16 @@ pipeline{
                 '''
             }
         }
-        stage('SonarQube Analysis'){
-            steps{
-                withSonarQubeEnv(credentialsId: 'sonar-cred', installationName: 'sonar') {
-                sh '''
-                    cd FlightReservationApplication
-                    mvn sonar:sonar -Dsonar.projectKey=flight-reservation
-                '''
-                }
-            }
-        }
+       // stage('SonarQube Analysis'){
+       //     steps{
+        //        withSonarQubeEnv(credentialsId: 'sonar-cred', installationName: 'sonar') {
+        //        sh '''
+        //            cd FlightReservationApplication
+        //            mvn sonar:sonar -Dsonar.projectKey=flight-reservation
+        //        '''
+        //        }
+        //    }
+       // }
         stage('Dockerbuild'){
             steps{
                 sh '''
@@ -43,7 +43,7 @@ pipeline{
             steps{
                 sh '''
                     cd FlightReservationApplication
-                    sed -i "s|image: mayurwagh/flight-reservation-app:latest|image: $REPONAME/$IMAGE_NAME:$BUILD_NUMBER|g" k8s/deployment.yaml
+                    sed -i "s|image: jyotiparmar/flight-reservation-app:latest|image: $REPONAME/$IMAGE_NAME:$BUILD_NUMBER|g" k8s/deployment.yaml
                     kubectl apply -f k8s/deployment.yaml
                     kubectl apply -f k8s/service.yaml
                 '''
