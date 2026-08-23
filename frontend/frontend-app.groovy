@@ -19,7 +19,7 @@ pipeline{
             steps{
                 sh '''
                 cd frontend
-                aws s3 sync dist/ s3:/// flight-app-r-bkt
+                aws s3 sync dist/ s3://flight-app-r-bkt/
                 '''  
             }
         }
