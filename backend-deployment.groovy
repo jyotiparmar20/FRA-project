@@ -1,7 +1,7 @@
 pipeline{
     agent any 
     environment {
-        REPONAME = 'jyotiparmar'
+        REPONAME = 'jyotiparmar208'
         IMAGE_NAME = 'flight-reservation-cdec-b50'
     }
 
